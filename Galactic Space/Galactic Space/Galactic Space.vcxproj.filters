@@ -36,6 +36,9 @@
     <ClCompile Include="Input\InputManager.cpp">
       <Filter>Source Files\Input</Filter>
     </ClCompile>
+    <ClCompile Include="D3D.cpp">
+      <Filter>Source Files\Renderer</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="stdafx.h">
@@ -49,6 +52,9 @@
     </ClInclude>
     <ClInclude Include="Input\InputManager.h">
       <Filter>Source Files\Input</Filter>
+    </ClInclude>
+    <ClInclude Include="D3D.h">
+      <Filter>Source Files\Renderer\Header Files</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
