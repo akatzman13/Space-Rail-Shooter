@@ -1,7 +1,7 @@
 #ifndef CINPUTMANAGER_H
 #define CINPUTMANAGER_H
 
-#include "stdafx.h"
+#include "../stdafx.h"
 class CInputManager
 {
 public:

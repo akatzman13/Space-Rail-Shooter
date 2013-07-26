@@ -11,3 +11,9 @@
 *.lai
 *.la
 *.a
+
+/Galactic Space/Debug
+/Galactic Space/ipch
+/Galactic Space/Galactic Space.suo
+/Galactic Space/Galactic Space.opensdf
+/Galactic Space/Galactic Space.sdf
