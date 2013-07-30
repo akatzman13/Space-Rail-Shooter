@@ -55,13 +55,14 @@ bool CSystem::Init()
 	}
 	// Initialize the renderer
 	result = m_pRenderer->Init(screenWidth, screenHeight, m_hwnd);
-	WriteToConsole("Initialized Renderer");
 
 	if(!result)
 	{
+		WriteToConsole("Renderer initialized with errors.");
 		return false;
 	}
 
+	WriteToConsole("Renderer initialized successfully!");
 	return true;	
 }
 

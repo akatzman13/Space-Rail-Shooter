@@ -1,5 +1,5 @@
 #include "Renderer.h"
-
+#include "D3D.h"
 
 CRenderer::CRenderer(void)
 {

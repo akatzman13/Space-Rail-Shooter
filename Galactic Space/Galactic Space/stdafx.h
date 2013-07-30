@@ -33,6 +33,7 @@ using std::endl;
 
 #ifdef _DEBUG
 #define OUTPUT(outputstatement)	{ std::wcout << outputstatement << endl;}
+void WriteToConsole(const char* message);
 #endif
 
 #ifndef _DEBUG
