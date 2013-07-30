@@ -2,6 +2,7 @@
 #define CRENDERER_H
 
 #include "../stdafx.h"
+#include "D3D.h"
 
 const bool FULL_SCREEN = false;
 const bool VSYNC_ENABLED = true;
@@ -21,6 +22,7 @@ public:
 
 private:
 	bool Render();
+	CD3D*	m_pD3D;
 };
 #endif
 

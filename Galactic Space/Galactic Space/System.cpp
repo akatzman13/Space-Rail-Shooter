@@ -1,5 +1,7 @@
 #include "System.h"
 
+HANDLE consoleHandle;
+
 CSystem::CSystem(void)
 {
 	m_pInput = NULL;
@@ -15,11 +17,17 @@ CSystem::~CSystem(void)
 {
 }
 
-void WriteToConsole(const char* message)
+void WriteToConsole(const char* message, ConsoleInfo _info)
 {
+	if(_info == WARNING)
+		SetConsoleTextAttribute(consoleHandle, 0x0E);
+	else if(_info == INFO)
+		SetConsoleTextAttribute(consoleHandle, 0x0A);
+	else if(_info == ERRORS)
+		SetConsoleTextAttribute(consoleHandle, 0x0C);
+
 	std::wcout << message << '\n';
 }
-
 
 bool CSystem::Init()
 {
@@ -28,7 +36,6 @@ bool CSystem::Init()
 	consoleHandle = GetStdHandle(STD_OUTPUT_HANDLE);
 	FILE* file = NULL;
 	freopen_s(&file, "CONOUT$", "w", stdout);
-
 	// Initialize the width and height of the screen to 0 before it is assigned
 	int screenWidth = 0;
 	int screenHeight = 0;
@@ -36,7 +43,7 @@ bool CSystem::Init()
 
 	// Init the windows api
 	InitWindows(screenWidth, screenHeight);	
-	WriteToConsole("Initialized Window");
+	WriteToConsole("Initialized Window", INFO);
 
 	// Create a new input object used to handle user input
 	m_pInput = new CInputManager();
@@ -46,7 +53,7 @@ bool CSystem::Init()
 	}
 	// Initialize the input object
 	m_pInput->Init();
-	WriteToConsole("Initialized Input");
+	WriteToConsole("Initialized Input", INFO);
 
 	m_pRenderer = new CRenderer();
 	if(!m_pRenderer)
@@ -58,11 +65,11 @@ bool CSystem::Init()
 
 	if(!result)
 	{
-		WriteToConsole("Renderer initialized with errors.");
+		WriteToConsole("Renderer initialized with errors.", ERRORS);
 		return false;
 	}
 
-	WriteToConsole("Renderer initialized successfully!");
+	WriteToConsole("Renderer initialized successfully!", INFO);
 	return true;	
 }
 

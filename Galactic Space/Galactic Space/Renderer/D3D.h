@@ -10,30 +10,11 @@
 #include <D3Dcommon.h>
 #include <d3d11.h>
 #include <D3DX10math.h>
+#include "../stdafx.h"
+
 
 class CD3D
 {
-public:
-	CD3D();
-	CD3D(const CD3D&);
-	~CD3D();
-
-	bool Initialize(int _screenWidth, int _screenHeight, bool _vsync, HWND _hwnd, bool _fullscreen, 
-		float _screenDepth, float _screenNear);
-	void Shutdown();
-
-	void BeginScene(float, float, float, float);
-	void EndScene();
-
-	ID3D11Device* GetDevice();
-	ID3D11DeviceContext* GetDeviceContext();
-
-	void GetProjectionMatrix(D3DXMATRIX&);
-	void GetWorldMatrix(D3DXMATRIX&);
-	void GetOrthoMatrix(D3DXMATRIX&);
-
-	void GetVideoCardInfo(char*, int&);
-
 private:
 	bool m_bVsync;
 	int m_nVideoCardMemory;
@@ -49,6 +30,29 @@ private:
 	D3DXMATRIX m_mProjMatrix;
 	D3DXMATRIX m_mWorldMatrix;
 	D3DXMATRIX m_mOrthoMatrix;
+
+public:
+	CD3D();
+	CD3D(const CD3D&);
+	~CD3D();
+
+	bool Initialize(int _screenWidth, int _screenHeight, bool _vsync, HWND _hwnd, bool _fullscreen, 
+		float _screenDepth, float _screenNear);
+	void Shutdown();
+
+	void BeginScene(float, float, float, float);
+	void EndScene();
+	void GetVideoCardInfo(char*, int&);
+
+	ID3D11Device* GetDevice()	{return m_pDevice;}
+	ID3D11DeviceContext* GetDeviceContext() {return m_pDeviceContext;}
+
+	D3DXMATRIX GetProjectionMatrix()  {return m_mProjMatrix;}
+	D3DXMATRIX GetWorldMatrix()		{return m_mWorldMatrix;}
+	D3DXMATRIX GetOrthoMatrix()		{return m_mOrthoMatrix;}
+
+
+
 };
 
 #endif

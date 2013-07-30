@@ -31,13 +31,22 @@ using std::endl;
 #define ToggleBit(Flag, Bit)	(Flag ^=  (1<<Bit))	
 #define ISBitOn(Flag,	Bit)		(Flag  &  (1<<Bit))
 
+enum ConsoleInfo
+{
+	INFO = 0,
+	WARNING = 1,
+	ERRORS = 2,
+};
+
 #ifdef _DEBUG
 #define OUTPUT(outputstatement)	{ std::wcout << outputstatement << endl;}
-void WriteToConsole(const char* message);
+void WriteToConsole(const char* message, ConsoleInfo _info);
 #endif
 
 #ifndef _DEBUG
 #include <vld.h>
 #endif
+
+
 
 #endif

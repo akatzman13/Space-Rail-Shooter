@@ -5,8 +5,6 @@
 #include "Renderer/Renderer.h"
 #include "Input/InputManager.h"
 
-void WriteToConsole(const char* message);
-
 class CSystem
 {
 public:
@@ -25,9 +23,7 @@ private:
 	bool Frame();
 	void InitWindows(int& _screenWidth, int& _screenHeight);
 	void ShutdownWindows();
-	HANDLE consoleHandle;
-
-
+	
 	LPCWSTR m_applicationName;
 	HINSTANCE m_hInstance;
 	HWND m_hwnd;
