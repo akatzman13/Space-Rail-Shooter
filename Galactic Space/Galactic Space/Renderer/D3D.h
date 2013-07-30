@@ -1,15 +1,6 @@
 #ifndef D3D_H
 #define D3D_H
 
-#pragma comment(lib, "dxgi.lib")
-#pragma comment(lib, "d3d11.lib")
-#pragma comment(lib, "d3dx11.lib")
-#pragma comment(lib, "d3dx10.lib")
-
-#include <dxgi.h>
-#include <D3Dcommon.h>
-#include <d3d11.h>
-#include <D3DX10math.h>
 #include "../stdafx.h"
 
 
