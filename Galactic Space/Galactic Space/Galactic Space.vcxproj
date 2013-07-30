@@ -87,6 +87,9 @@
     <ClInclude Include="stdafx.h" />
     <ClInclude Include="System.h" />
   </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Shaders\Color.fx" />
+  </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
   </ImportGroup>
