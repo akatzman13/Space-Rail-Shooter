@@ -24,6 +24,18 @@
     <Filter Include="Source Files\Renderer\Source Files">
       <UniqueIdentifier>{a9102954-e18c-4e1d-94ab-812a9d2eec27}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source Files\States">
+      <UniqueIdentifier>{22e43106-f1c8-4917-81f4-86e412298965}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\States\Header Files">
+      <UniqueIdentifier>{75f68021-fdbb-4a9c-a459-aac646040712}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\States\Source Files">
+      <UniqueIdentifier>{80657f48-3a3b-4d84-b574-5e8a8c412459}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Utilities">
+      <UniqueIdentifier>{2cd54e6c-2d05-4176-810e-5a4ffc7ad9a4}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Main.cpp">
@@ -52,6 +64,18 @@
     </ClCompile>
     <ClCompile Include="Renderer\RenderNode.cpp">
       <Filter>Source Files\Renderer\Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Game.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="States\GamePlayState.cpp">
+      <Filter>Source Files\States\Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="States\MainMenuState.cpp">
+      <Filter>Source Files\States\Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Utilities\Timer.cpp">
+      <Filter>Utilities</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -84,6 +108,21 @@
     </ClInclude>
     <ClInclude Include="Renderer\RenderNode.h">
       <Filter>Source Files\Renderer\Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Game.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="States\GamePlayState.h">
+      <Filter>Source Files\States\Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="States\MainMenuState.h">
+      <Filter>Source Files\States\Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="States\IBaseState.h">
+      <Filter>Source Files\States\Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Utilities\Timer.h">
+      <Filter>Utilities</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

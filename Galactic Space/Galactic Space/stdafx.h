@@ -13,6 +13,8 @@
 #include <string>
 #include <sstream>
 #include <iostream>
+#include <vector>
+#include <list>
 #include <DbgHelp.h>
 #pragma comment(lib, "dbghelp")
 
@@ -20,6 +22,8 @@ using std::string;
 using std::ostream;
 using std::cout;
 using std::endl;
+using std::list;
+using std::vector;
 // Used to release DirecX memory
 #define RELEASE(ref)			{if (ref) { ref->Release(); ref = nullptr;}}
 // Deletes dynamically allocated memory and sets the pointer to null
