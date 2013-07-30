@@ -50,6 +50,9 @@
     <ClCompile Include="Renderer\Renderer.cpp">
       <Filter>Source Files\Renderer\Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="Renderer\RenderNode.cpp">
+      <Filter>Source Files\Renderer\Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="stdafx.h">
@@ -77,6 +80,9 @@
       <Filter>Source Files\Renderer\Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Renderer\Camera.h">
+      <Filter>Source Files\Renderer\Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Renderer\RenderNode.h">
       <Filter>Source Files\Renderer\Header Files</Filter>
     </ClInclude>
   </ItemGroup>

@@ -80,6 +80,7 @@
     <ClCompile Include="Renderer\D3D.cpp" />
     <ClCompile Include="Renderer\Model.cpp" />
     <ClCompile Include="Renderer\Renderer.cpp" />
+    <ClCompile Include="Renderer\RenderNode.cpp" />
     <ClCompile Include="Renderer\Shader.cpp" />
     <ClCompile Include="System.cpp" />
   </ItemGroup>
@@ -89,6 +90,7 @@
     <ClInclude Include="Renderer\D3D.h" />
     <ClInclude Include="Renderer\Model.h" />
     <ClInclude Include="Renderer\Renderer.h" />
+    <ClInclude Include="Renderer\RenderNode.h" />
     <ClInclude Include="Renderer\Shader.h" />
     <ClInclude Include="resource.h" />
     <ClInclude Include="stdafx.h" />
