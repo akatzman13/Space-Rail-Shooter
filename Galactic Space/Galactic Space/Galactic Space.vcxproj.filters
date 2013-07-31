@@ -77,6 +77,15 @@
     <ClCompile Include="Utilities\Timer.cpp">
       <Filter>Utilities</Filter>
     </ClCompile>
+    <ClCompile Include="Renderer\Texture.cpp">
+      <Filter>Source Files\Renderer\Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Renderer\DxBitmap.cpp">
+      <Filter>Source Files\Renderer\Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Renderer\TextureShader.cpp">
+      <Filter>Source Files\Renderer\Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="stdafx.h">
@@ -124,12 +133,33 @@
     <ClInclude Include="Utilities\Timer.h">
       <Filter>Utilities</Filter>
     </ClInclude>
+    <ClInclude Include="Renderer\Texture.h">
+      <Filter>Source Files\Renderer\Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Renderer\DxBitmap.h">
+      <Filter>Source Files\Renderer\Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Renderer\TextureShader.h">
+      <Filter>Source Files\Renderer\Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\Shaders\ColorPS.fx">
       <Filter>Shaders</Filter>
     </None>
     <None Include="Resources\Shaders\ColorVS.fx">
+      <Filter>Shaders</Filter>
+    </None>
+    <None Include="Resources\Shaders\texturePS.fx">
+      <Filter>Shaders</Filter>
+    </None>
+    <None Include="Resources\Shaders\textureVS.fx">
+      <Filter>Shaders</Filter>
+    </None>
+    <None Include="Resources\Shaders\2DTexturePS.fx">
+      <Filter>Shaders</Filter>
+    </None>
+    <None Include="Resources\Shaders\2DTextureVS.fx">
       <Filter>Shaders</Filter>
     </None>
   </ItemGroup>

@@ -1,11 +1,15 @@
 #include "Renderer.h"
 
+
+
 CRenderer::CRenderer(void)
 {
 	m_pD3D = NULL;
 	m_pCamera = NULL;
-	m_pModel = NULL;
-	m_pColorShader = NULL;
+	m_pBitmap = NULL;
+	m_pTextureShader = NULL;
+	moveX = 0;
+	moving = false;
 }
 
 CRenderer::CRenderer(const CRenderer& other)
@@ -22,6 +26,8 @@ CRenderer::~CRenderer(void)
 bool CRenderer::Init(int _screenWidth, int _screenHeight, HWND _hwnd)
 {
 	bool bresult;
+	m_nScreenWidth = _screenWidth;
+	m_nScreenHeight = m_nScreenHeight;
 
 	// Create the Direct3D object.
 	m_pD3D = new CD3D();
@@ -58,32 +64,32 @@ bool CRenderer::Init(int _screenWidth, int _screenHeight, HWND _hwnd)
 	m_pCamera->SetPosition(0.0f, 0.0f, -10.0f);
 
 	// Create the model object.
-	m_pModel = new CModel;
-	if(!m_pModel)
+	m_pBitmap = new CDxBitmap;
+	if(!m_pBitmap)
 	{
 		return false;
 	}
 
 	// Initialize the model object.
-	bresult = m_pModel->Initialize(m_pD3D->GetDevice());
+	bresult = m_pBitmap->Initialize(m_pD3D->GetDevice(), _screenWidth, _screenHeight, L"../Galactic Space/Resources/Images/Lighthouse.jpg", 256,  256);
 	if(!bresult)
 	{
-		WriteToConsole("Could not initialize model", ERRORS);
+		WriteToConsole("Could not initialize bitmap", ERRORS);
 		return false;
 	}
 
 	// Create the color shader object.
-	m_pColorShader = new CShader;
-	if(!m_pColorShader)
+	m_pTextureShader = new CTextureShader;
+	if(!m_pTextureShader)
 	{
 		return false;
 	}
 
 	// Initialize the color shader object.
-	bresult = m_pColorShader->Initialize(m_pD3D->GetDevice(), _hwnd);
+	bresult = m_pTextureShader->Initialize(m_pD3D->GetDevice(), _hwnd);
 	if(!bresult)
 	{
-		WriteToConsole("Could not initialize color shader object", ERRORS);
+		WriteToConsole("Could not initialize texture shader object", ERRORS);
 		return false;
 	}
 
@@ -93,19 +99,19 @@ bool CRenderer::Init(int _screenWidth, int _screenHeight, HWND _hwnd)
 void CRenderer::Shutdown()
 {
 	// Release the color shader object.
-	if(m_pColorShader)
+	if(m_pTextureShader)
 	{
-		m_pColorShader->Shutdown();
-		delete m_pColorShader;
-		m_pColorShader = 0;
+		m_pTextureShader->Shutdown();
+		delete m_pTextureShader;
+		m_pTextureShader = 0;
 	}
 
 	// Release the model object.
-	if(m_pModel)
+	if(m_pBitmap)
 	{
-		m_pModel->Shutdown();
-		delete m_pModel;
-		m_pModel = 0;
+		m_pBitmap->Shutdown();
+		delete m_pBitmap;
+		m_pBitmap = 0;
 	}
 
 	// Release the camera object.
@@ -127,6 +133,19 @@ bool CRenderer::Frame()
 {
 	bool bresult;
 
+	if(!moving)
+	{
+		moveX += 1.5f;
+		if((moveX + m_pBitmap->GetBitmapWidth()) >= m_nScreenWidth)
+			moving = true;
+	}
+	else if(moving)
+	{
+		moveX -= .5f;
+		if(moveX <= m_nScreenHeight)
+			moving = false;
+	}
+
 	bresult = Render();
 	if(!bresult)
 	{
@@ -138,7 +157,7 @@ bool CRenderer::Frame()
 
 bool CRenderer::Render()
 {
-	D3DXMATRIX viewMatrix, projectionMatrix, worldMatrix;
+	D3DXMATRIX worldMatrix, viewMatrix, projectionMatrix, orthoMatrix;
 	bool result;
 
 
@@ -148,21 +167,27 @@ bool CRenderer::Render()
 	// Generate the view matrix based on the camera's position.
 	m_pCamera->Render();
 
-	// Get the world, view, and projection matrices from the camera and d3d objects.
+	// Get the world, view, projection, and ortho matrices from the camera and d3d objects.
 	viewMatrix = m_pCamera->GetViewMatrix();
 	worldMatrix = m_pD3D->GetWorldMatrix();
 	projectionMatrix = m_pD3D->GetProjectionMatrix();
 
-	// Put the model vertex and index buffers on the graphics pipeline to prepare them for drawing.
-	m_pModel->Render(m_pD3D->GetDeviceContext());
+	orthoMatrix = m_pD3D->GetOrthoMatrix();
 
-	// Render the model using the color shader.
-	result = m_pColorShader->Render(m_pD3D->GetDeviceContext(), m_pModel->GetIndexCount(), worldMatrix, viewMatrix, projectionMatrix);
+	// Turn off the Z buffer to begin all 2D rendering.
+	m_pD3D->TurnOffZBuffer();
+
+	// Put the bitmap vertex and index buffers on the graphics pipeline to prepare them for drawing.
+	m_pBitmap->Render(m_pD3D->GetDeviceContext(), (int)moveX, 100);
+
+	// Render the bitmap with the texture shader.
+	result = m_pTextureShader->Render(m_pD3D->GetDeviceContext(), m_pBitmap->GetIndexCount(), worldMatrix, viewMatrix, orthoMatrix, m_pBitmap->GetTexture());
 	if(!result)
 	{
 		return false;
 	}
-
+	// Turn the Z buffer back on now that all 2D rendering has completed.
+	m_pD3D->TurnOnZBuffer();
 
 	// Present the rendered scene to the screen.
 	m_pD3D->EndScene();

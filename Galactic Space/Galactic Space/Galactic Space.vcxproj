@@ -79,10 +79,13 @@
     <ClCompile Include="Main.cpp" />
     <ClCompile Include="Renderer\Camera.cpp" />
     <ClCompile Include="Renderer\D3D.cpp" />
+    <ClCompile Include="Renderer\DxBitmap.cpp" />
     <ClCompile Include="Renderer\Model.cpp" />
     <ClCompile Include="Renderer\Renderer.cpp" />
     <ClCompile Include="Renderer\RenderNode.cpp" />
     <ClCompile Include="Renderer\Shader.cpp" />
+    <ClCompile Include="Renderer\Texture.cpp" />
+    <ClCompile Include="Renderer\TextureShader.cpp" />
     <ClCompile Include="States\GamePlayState.cpp" />
     <ClCompile Include="States\MainMenuState.cpp" />
     <ClCompile Include="System.cpp" />
@@ -93,10 +96,13 @@
     <ClInclude Include="Input\InputManager.h" />
     <ClInclude Include="Renderer\Camera.h" />
     <ClInclude Include="Renderer\D3D.h" />
+    <ClInclude Include="Renderer\DxBitmap.h" />
     <ClInclude Include="Renderer\Model.h" />
     <ClInclude Include="Renderer\Renderer.h" />
     <ClInclude Include="Renderer\RenderNode.h" />
     <ClInclude Include="Renderer\Shader.h" />
+    <ClInclude Include="Renderer\Texture.h" />
+    <ClInclude Include="Renderer\TextureShader.h" />
     <ClInclude Include="resource.h" />
     <ClInclude Include="States\GamePlayState.h" />
     <ClInclude Include="States\IBaseState.h" />
@@ -106,8 +112,12 @@
     <ClInclude Include="Utilities\Timer.h" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="Resources\Shaders\2DTexturePS.fx" />
+    <None Include="Resources\Shaders\2DTextureVS.fx" />
     <None Include="Resources\Shaders\ColorPS.fx" />
     <None Include="Resources\Shaders\ColorVS.fx" />
+    <None Include="Resources\Shaders\texturePS.fx" />
+    <None Include="Resources\Shaders\textureVS.fx" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

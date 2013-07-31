@@ -4,8 +4,8 @@
 #include "../stdafx.h"
 #include "D3D.h"
 #include "Camera.h"
-#include "Model.h"
-#include "Shader.h"
+#include "DxBitmap.h"
+#include "TextureShader.h"
 
 const bool FULL_SCREEN = false;
 const bool VSYNC_ENABLED = true;
@@ -27,8 +27,13 @@ private:
 	bool Render();
 	CD3D*	m_pD3D;
 	CCamera* m_pCamera;
-	CModel*  m_pModel;
-	CShader* m_pColorShader;
+	CDxBitmap* m_pBitmap;
+	CTextureShader* m_pTextureShader;
+	float moveX;
+	bool  moving;
+	int m_nScreenWidth, m_nScreenHeight;
+	
+
 };
 #endif
 

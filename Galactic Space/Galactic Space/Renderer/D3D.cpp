@@ -12,6 +12,8 @@ CD3D::CD3D(void)
 	m_pDepthStencilState = NULL;
 	m_pDepthStencilView = NULL;
 	m_pRasterState = NULL;
+
+	m_pDepthStencilState = NULL;
 }
 
 CD3D::CD3D(const CD3D& other)
@@ -43,6 +45,7 @@ bool CD3D::Initialize(int _screenWidth, int _screenHeight, bool _vsync, HWND _hw
 	D3D11_RASTERIZER_DESC			rasterDesc;
 	D3D11_VIEWPORT					viewport;
 	float							fov, screenAsp;
+	D3D11_DEPTH_STENCIL_DESC		depthDisabledStencilDesc;
 
 	// Store the vsync setting
 	m_bVsync = _vsync;
@@ -380,6 +383,35 @@ bool CD3D::Initialize(int _screenWidth, int _screenHeight, bool _vsync, HWND _hw
 	// Create an orthographic projection matrix for 2D rendering.
 	D3DXMatrixOrthoLH(&m_mOrthoMatrix, (float)_screenWidth, (float)_screenHeight, _screenNear, _screenDepth);
 
+	// Clear the second depth stencil state before setting the parameters.
+	ZeroMemory(&depthDisabledStencilDesc, sizeof(depthDisabledStencilDesc));
+
+	// Now create a second depth stencil state which turns off the Z buffer for 2D rendering.  The only difference is 
+	// that DepthEnable is set to false, all other parameters are the same as the other depth stencil state.
+	depthDisabledStencilDesc.DepthEnable = false;
+	depthDisabledStencilDesc.DepthWriteMask = D3D11_DEPTH_WRITE_MASK_ALL;
+	depthDisabledStencilDesc.DepthFunc = D3D11_COMPARISON_LESS;
+	depthDisabledStencilDesc.StencilEnable = true;
+	depthDisabledStencilDesc.StencilReadMask = 0xFF;
+	depthDisabledStencilDesc.StencilWriteMask = 0xFF;
+	depthDisabledStencilDesc.FrontFace.StencilFailOp = D3D11_STENCIL_OP_KEEP;
+	depthDisabledStencilDesc.FrontFace.StencilDepthFailOp = D3D11_STENCIL_OP_INCR;
+	depthDisabledStencilDesc.FrontFace.StencilPassOp = D3D11_STENCIL_OP_KEEP;
+	depthDisabledStencilDesc.FrontFace.StencilFunc = D3D11_COMPARISON_ALWAYS;
+	depthDisabledStencilDesc.BackFace.StencilFailOp = D3D11_STENCIL_OP_KEEP;
+	depthDisabledStencilDesc.BackFace.StencilDepthFailOp = D3D11_STENCIL_OP_DECR;
+	depthDisabledStencilDesc.BackFace.StencilPassOp = D3D11_STENCIL_OP_KEEP;
+	depthDisabledStencilDesc.BackFace.StencilFunc = D3D11_COMPARISON_ALWAYS;
+
+	// Create the state using the device.
+	hresult = m_pDevice->CreateDepthStencilState(&depthDisabledStencilDesc, &m_pdepthDisabledStencilState);
+	if(FAILED(hresult))
+	{
+		WriteToConsole("Failed to create depth stencil state", ERRORS);
+		return false;
+	}
+
+
 	return true;
 }
 
@@ -431,6 +463,11 @@ void CD3D::Shutdown()
 		RELEASE(m_pSwapChain);
 	}
 
+	if(m_pdepthDisabledStencilState)
+	{
+		m_pdepthDisabledStencilState->Release();
+		m_pdepthDisabledStencilState = NULL;
+	}
 	return;
 }
 	 
@@ -474,4 +511,15 @@ void CD3D::GetVideoCardInfo(char* cardName, int& memory)
 	strcpy_s(cardName, 128, m_cVideoCardDescription);
 	memory = m_nVideoCardMemory;
 	return;
+}
+
+void CD3D::TurnOnZBuffer()
+{
+	m_pDeviceContext->OMSetDepthStencilState(m_pDepthStencilState, 1);
+	return;
+}
+
+void CD3D::TurnOffZBuffer()
+{
+	m_pDeviceContext->OMSetDepthStencilState(m_pdepthDisabledStencilState, 1);
 }

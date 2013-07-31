@@ -24,7 +24,12 @@ void WriteToConsole(const char* message, ConsoleInfo _info)
 	else if(_info == INFO)
 		SetConsoleTextAttribute(consoleHandle, 0x0A);
 	else if(_info == ERRORS)
+	{
 		SetConsoleTextAttribute(consoleHandle, 0x0C);
+		std::wcout << message << '\n';
+		system("Pause");
+		return;
+	}
 
 	std::wcout << message << '\n';
 }

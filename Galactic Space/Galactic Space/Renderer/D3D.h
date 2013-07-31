@@ -21,6 +21,7 @@ private:
 	D3DXMATRIX m_mProjMatrix;
 	D3DXMATRIX m_mWorldMatrix;
 	D3DXMATRIX m_mOrthoMatrix;
+	ID3D11DepthStencilState*	m_pdepthDisabledStencilState;
 
 public:
 	CD3D();
@@ -34,6 +35,8 @@ public:
 	void BeginScene(float, float, float, float);
 	void EndScene();
 	void GetVideoCardInfo(char*, int&);
+	void TurnOnZBuffer();
+	void TurnOffZBuffer();
 
 	ID3D11Device* GetDevice()	{return m_pDevice;}
 	ID3D11DeviceContext* GetDeviceContext() {return m_pDeviceContext;}
